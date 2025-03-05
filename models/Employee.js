@@ -29,14 +29,6 @@ const EmployeeSchema = new mongoose.Schema({
   ]
 });
 
-// Auto-increment Employee ID
-EmployeeSchema.pre("save", async function (next) {
-  if (!this.isNew) return next();
 
-  const lastEmployee = await this.constructor.findOne().sort({ employeeId: -1 });
-  this.employeeId = lastEmployee ? lastEmployee.employeeId + 1 : 2001; // Start from 2001
-
-  next();
-});
 
 module.exports = mongoose.model("Employee", EmployeeSchema);
