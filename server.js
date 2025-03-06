@@ -12,11 +12,13 @@ connectDB();
 
 const app = express();
 const corsOptions = {
-  origin: "https://pydah-leave-management.vercel.app/", // Replace with your frontend URL
-  methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
-  credentials: true, // Allow cookies (if needed)
+  origin: "https://pydah-leave-management.vercel.app", // Frontend URL
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true, // Enable cookies/auth headers
 };
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
