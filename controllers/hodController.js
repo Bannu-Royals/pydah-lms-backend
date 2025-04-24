@@ -6,28 +6,38 @@ const Employee = require("../models/Employee");
 // HOD Registration
 exports.registerHod = async (req, res) => {
   try {
-    const { name, email, password, department } = req.body;
+    const { name, email, password, department, HODId } = req.body;
     
-    let hod = await HOD.findOne({ email });
-
-    if (hod) {
-      return res.status(400).json({ msg: "HOD already registered" });
+    // Check if email already exists
+    let hodWithEmail = await HOD.findOne({ email });
+    if (hodWithEmail) {
+      return res.status(400).json({ msg: "HOD already registered with this email" });
     }
-
+    
+    // Check if department already has an HOD
+    let hodWithDepartment = await HOD.findOne({ department });
+    if (hodWithDepartment) {
+      return res.status(400).json({ 
+        msg: "This department already has an HOD registered. Please login with those credentials." 
+      });
+    }
+    
+    // Check if HODId is already taken
+    let hodWithId = await HOD.findOne({ HODId });
+    if (hodWithId) {
+      return res.status(400).json({ msg: "Invalid HOD ID. This ID is already registered." });
+    }
+    
     const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Generate unique HODId
-    const lastHod = await HOD.findOne().sort({ HODId: -1 });
-    const newHODId = lastHod ? lastHod.HODId + 1 : 1001; // Start from 1001
-    console.log(newHODId);
+    
     hod = new HOD({
       name,
       email,
       password: hashedPassword,
       department,
-      HODId: newHODId,  // Make sure it's HODId and not employeeId
+      HODId,  // Using the HODId sent from frontend
     });
-
+    
     await hod.save();
     res.status(201).json({ msg: "HOD registered successfully!" });
   } catch (err) {

@@ -22,14 +22,4 @@ const HODSchema = new mongoose.Schema({
   ]
 });
 
-// Auto-increment HOD ID
-HODSchema.pre("save", async function (next) {
-  if (!this.isNew) return next();
-
-  const lastHod = await mongoose.model("Hod").findOne().sort({ HODId: -1 });
-  this.HODId = lastHod ? lastHod.HODId + 1 : 1001; // Start from 1001
-
-  next();
-});
-
 module.exports = mongoose.model("Hod", HODSchema);
