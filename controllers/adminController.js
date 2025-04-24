@@ -103,6 +103,7 @@ exports.updateHodLeaveRequest = async (req, res) => {
   try {
     const { employeeId, leaveRequestId, status, remarks } = req.body;
     hodId = employeeId;
+    var static = "Rejected by Principal";
    
 
  
@@ -128,6 +129,7 @@ exports.updateHodLeaveRequest = async (req, res) => {
 
   // If approving leave, check leave balance
   if (status === "Approved") {
+    static = "Approved by Principal";
     if (hod.leaveBalance < leaveDays) {
       warningMessage = "Warning: Insufficient leave balance, but the request is still approved.";
       hod.leaveBalance -= leaveDays;
@@ -142,7 +144,7 @@ exports.updateHodLeaveRequest = async (req, res) => {
     }
 
     leaveRequest.status = status;
-    leaveRequest.remarks = remarks || leaveRequest.remarks; // Update only if provided
+    leaveRequest.remarks = remarks || static; // Update only if provided
 
     await hod.save();
 
