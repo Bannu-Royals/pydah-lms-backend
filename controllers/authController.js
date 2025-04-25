@@ -44,9 +44,9 @@ exports.registerEmployee = async (req, res) => {
 
 // Employee Login
 exports.loginEmployee = async (req, res) => {
-  const { email, password } = req.body;
+  const { employeeId, password } = req.body;
   try {
-    const employee = await Employee.findOne({ email });
+    const employee = await Employee.findOne({ employeeId });
     if (!employee) return res.status(400).json({ msg: "Invalid credentials" });
 
     const isMatch = await bcrypt.compare(password, employee.password);
