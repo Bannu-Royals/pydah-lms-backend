@@ -48,8 +48,8 @@ exports.registerHod = async (req, res) => {
 // HOD Login
 exports.loginHod = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const hod = await HOD.findOne({ email });
+    const { HODId, password } = req.body;
+    const hod = await HOD.findOne({ HODId });
 
     if (!hod) {
       return res.status(400).json({ msg: "Invalid Credentials" });
