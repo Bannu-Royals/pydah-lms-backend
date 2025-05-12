@@ -5,7 +5,7 @@ const Admin = require("../models/Admin");
 
 // Predefined admin credentials
 const predefinedAdmins = [
-  { email: "admin1@gmail.com", password: "pass1" },
+  { userId: 1200, password: "pass1" },
   { email: "admin2@gmail.com", password: "securepass2" }
 ];
 
