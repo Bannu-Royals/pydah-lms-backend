@@ -65,9 +65,9 @@ exports.loginEmployee = async (req, res) => {
 
 // Admin Login using Email
 exports.loginAdmin = async (req, res) => {
-  const { employeeId, password } = req.body;
+  const { email, password } = req.body;
   try {
-    const admin = predefinedAdmins.find(admin => admin.employeeId === employeeId);
+    const admin = predefinedAdmins.find(admin => admin.email === email);
     if (!admin) return res.status(400).json({ msg: "Invalid credentials" });
 
     const isMatch = password === admin.password;
