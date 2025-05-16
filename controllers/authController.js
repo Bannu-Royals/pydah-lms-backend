@@ -5,7 +5,7 @@ const Admin = require("../models/Admin");
 
 // Predefined admin credentials
 const predefinedAdmins = [
-  { email: "admin1@gmail.com", password: "pass1" },
+  { employeeId: 1200, password: "pass1" },
   { email: "admin2@gmail.com", password: "securepass2" }
 ];
 
@@ -65,9 +65,9 @@ exports.loginEmployee = async (req, res) => {
 
 // Admin Login using Email
 exports.loginAdmin = async (req, res) => {
-  const { email, password } = req.body;
+  const { employeeId, password } = req.body;
   try {
-    const admin = predefinedAdmins.find(admin => admin.email === email);
+    const admin = predefinedAdmins.find(admin => admin.employeeId === employeeId);
     if (!admin) return res.status(400).json({ msg: "Invalid credentials" });
 
     const isMatch = password === admin.password;
