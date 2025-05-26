@@ -5,6 +5,6 @@ const { registerEmployee, loginEmployee, loginAdmin } = require("../controllers/
 
 router.post("/register", registerEmployee);
 router.post("/login/employee", loginEmployee);
-router.post("/login/admin", loginAdmin);
+router.post("/admin", loginAdmin);
 
 module.exports = router;
