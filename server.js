@@ -12,7 +12,7 @@ connectDB();
 
 const app = express();
 const corsOptions = {
-  origin: true, // Replace with your frontend URL
+  origin: '*', // Replace with your frontend URL
   methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
   allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
   credentials: true, // Allow cookies (if needed)
