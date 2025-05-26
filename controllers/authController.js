@@ -87,6 +87,7 @@ exports.loginEmployee = async (req, res) => {
 // Admin Login
 exports.loginAdmin = async (req, res) => {
   const { employeeId, password } = req.body;
+   console.log('Admin login attempt:', { employeeId, password });
   try {
     const admin = predefinedAdmins.find(admin => admin.employeeId === employeeId);
     if (!admin) return res.status(400).json({ msg: "Invalid credentials" });
