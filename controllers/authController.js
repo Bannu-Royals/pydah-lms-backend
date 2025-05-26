@@ -87,27 +87,10 @@ exports.loginEmployee = async (req, res) => {
 // Admin Login
 exports.loginAdmin = async (req, res) => {
   const { employeeId, password } = req.body;
-  
-  console.log('Admin login attempt:', { 
-    receivedEmployeeId: employeeId, 
-    receivedPassword: password,
-    type: typeof employeeId 
-  });
-  
   try {
-    const parsedEmployeeId = parseInt(employeeId);
-    console.log('Looking for admin with ID:', parsedEmployeeId);
-    
-    const admin = predefinedAdmins.find(
-      (admin) => admin.employeeId === parsedEmployeeId
-    );
-    
-    if (!admin) {
-      console.log('Admin not found with ID:', parsedEmployeeId);
-      return res.status(400).json({ msg: "Invalid credentials" });
-    }
+    const admin = predefinedAdmins.find(admin => admin.employeeId === employeeId);
+    if (!admin) return res.status(400).json({ msg: "Invalid credentials" });
 
-    console.log('Validating password:', { received: password, expected: admin.password });
     const isMatch = password === admin.password;
     
     if (!isMatch) {
